@@ -18,10 +18,9 @@ public class ATM
         
         for (var i = Math.Min(value / faceValue, amount); i > 0; i--)
         {
-            var ans = GetCash(value - i * amount, offset + 1);
+            var ans = GetCash(value - i * faceValue, offset + 1);
             if (ans is not null)
-                return ans.Prepend((amount, i));
-
+                return ans.Prepend((faceValue, i));
         }
 
         return null;

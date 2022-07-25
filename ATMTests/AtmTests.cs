@@ -1,4 +1,5 @@
-using System.Diagnostics;
+using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ATMTests;
@@ -13,7 +14,8 @@ public class AtmTests
         var atm = new ATM(banknotes);
         var ans = atm.GetCash(9000);
         Assert.IsNull(ans);
-        ans = atm.GetCash(8000);
-        Assert.IsNotNull(ans);
+        ans = atm.GetCash(8000).ToArray();
+        ans.Should().Contain((5000, 1));
+        ans.Should().Contain((1000, 3));
     }
 }
