@@ -9,18 +9,11 @@ public class ATM
 
     public IEnumerable<(int, int)>? GetCash(int value, int offset = 0)
     {
-        // Banknotes[offset]
-        // foreach (var (faceValue, amount) in Banknotes.Skip(offset))
-        // {
-        //     for (var i = Math.Min(value / faceValue, amount); i > 0; i--)
-        //     {
-        //         var ans = GetCash(value - i * amount, offset + 1);
-        //         if (ans is not null)
-        //             return ans.Prepend((amount, i));
-        //
-        //     }
-        // }
-
+        if (offset == Banknotes.Length)
+        {
+            return value == 0 ? Enumerable.Empty<(int, int)>() : null;
+        }
+        
         var (faceValue, amount) = Banknotes[offset];
         
         for (var i = Math.Min(value / faceValue, amount); i > 0; i--)

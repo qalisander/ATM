@@ -11,7 +11,9 @@ public class AtmTests
     {
         var banknotes = new[] {(5000, 1), (1000, 3)};
         var atm = new ATM(banknotes);
-        var valueTuples = atm.GetCash(9000);
-        Assert.NotNull(valueTuples);
+        var ans = atm.GetCash(9000);
+        Assert.IsNull(ans);
+        ans = atm.GetCash(8000);
+        Assert.IsNotNull(ans);
     }
 }
