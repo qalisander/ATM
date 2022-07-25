@@ -1,16 +1,36 @@
 public class ATM
 {
-    private Dictionary<int, int> Banknotes { get; }
+    private (int, int)[] Banknotes { get; }
 
     public ATM(IEnumerable<(int, int)> banknotes)
     {
-        var pairs = banknotes.Select(tpl => KeyValuePair.Create(tpl.Item1, tpl.Item2));
-        Banknotes = new Dictionary<int, int>(pairs);
+        Banknotes = banknotes.OrderByDescending(tpl => tpl.Item1).ToArray();
     }
 
-    public IEnumerable<(int, int)> GetCash(int value)
+    public IEnumerable<(int, int)>? GetCash(int value, int offset = 0)
     {
-        throw new NotImplementedException();        
-        return new[] {(5000, 1), (1000, 3)};
+        // Banknotes[offset]
+        // foreach (var (faceValue, amount) in Banknotes.Skip(offset))
+        // {
+        //     for (var i = Math.Min(value / faceValue, amount); i > 0; i--)
+        //     {
+        //         var ans = GetCash(value - i * amount, offset + 1);
+        //         if (ans is not null)
+        //             return ans.Prepend((amount, i));
+        //
+        //     }
+        // }
+
+        var (faceValue, amount) = Banknotes[offset];
+        
+        for (var i = Math.Min(value / faceValue, amount); i > 0; i--)
+        {
+            var ans = GetCash(value - i * amount, offset + 1);
+            if (ans is not null)
+                return ans.Prepend((amount, i));
+
+        }
+
+        return null;
     }
 }
