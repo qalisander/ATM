@@ -8,7 +8,7 @@ namespace ATMTests;
 public class AtmTests
 {
     [Test]
-    public void SmokeTest()
+    public void AtmTest()
     {
         var banknotes = new[] {(5000, 1), (1000, 3)};
         var atm = new ATM(banknotes);
@@ -18,4 +18,11 @@ public class AtmTests
         ans.Should().Contain((5000, 1));
         ans.Should().Contain((1000, 3));
     }
+    //
+    // [Test]
+    // [TestCase(new[] {(5000, 1), (1000, 3)}, 8000, new[] {(5000, 1), (1000, 3)})]
+    // public void ComplexTest((int, int) banknotes, int value, (int, int) expected)
+    // {
+    //     // var banknotes = new[] {(5, 2), }
+    // }
 }
