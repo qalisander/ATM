@@ -16,11 +16,11 @@ public class ATM
         
         var (faceValue, amount) = Banknotes[offset];
         
-        for (var i = Math.Min(value / faceValue, amount); i > 0; i--)
+        for (var i = Math.Min(value / faceValue, amount); i >= 0; i--)
         {
             var ans = GetCash(value - i * faceValue, offset + 1);
             if (ans is not null)
-                return ans.Prepend((faceValue, i));
+                return i != 0 ? ans.Prepend((faceValue, i)) : ans;
         }
 
         return null;
